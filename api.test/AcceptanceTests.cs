@@ -1,12 +1,15 @@
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace api.test
 {
     public class AcceptanceTests
     {
+        FetchSurveys fetchSurveys;
         [SetUp]
         public void Setup()
         {
+            fetchSurveys = new FetchSurveys();
         }
 
         [TearDown]
@@ -15,10 +18,10 @@ namespace api.test
         }
 
         [Test]
-        public void ItCanServeASingleSurvey()
+        public void ItCanServeAnEmptySurvey()
         {
-            Survey survey = FetchQuestionnaires.Execute();
-            Assert.NotNull(survey);
+            List<Survey> response = fetchSurveys.Execute();
+            Assert.IsEmpty(response);
         }
     }
 }
