@@ -1,1 +1,6 @@
 **/appsettings.development.json
+
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
