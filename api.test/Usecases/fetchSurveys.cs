@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using Moq;
 
 namespace api.test
 {
@@ -8,15 +9,23 @@ namespace api.test
     FetchSurveys fetchSurveys; 
     [SetUp]
     public void Setup()
-    {
-        fetchSurveys = new FetchSurveys();
+    { 
     }
 
     [Test]
     public void itGetsEmptySurveys()
     {
-        List<Survey> response = fetchSurveys.Execute();
-        Assert.IsEmpty(response);
+      var mockGateway = new Mock<IFetchSurveysGateway>();
+      
+      List<Survey> response = new List<Survey>() { 
+                new Survey(){ },
+                new Survey(){ }
+            };
+
+      mockGateway.Setup(p => p.Execute()).Returns(response);
+      fetchSurveys = new FetchSurveys(mockGateway.Object);
+      fetchSurveys.Execute();
+      mockGateway.Verify(mockGateway => mockGateway.Execute(), Times.AtLeastOnce());
     }
   }
 }

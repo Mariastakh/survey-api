@@ -4,10 +4,15 @@ namespace api
 {
   public class FetchSurveys
   { 
+    IFetchSurveysGateway gateway;
+
+      public FetchSurveys(IFetchSurveysGateway gateway)
+      {
+        this.gateway = gateway;
+      }
       public List<Survey> Execute()
       {
-          List<Survey> response = new List<Survey>();
-          return response;
+          return gateway.Execute();
       }
   }
 }
