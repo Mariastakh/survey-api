@@ -7,21 +7,23 @@ namespace api.test
   public class fetchSurveysUnitTest
   {
     FetchSurveys fetchSurveys; 
+    Mock<IFetchSurveysGateway> mockGateway;
+    List<Survey> response;
     [SetUp]
     public void Setup()
     { 
+      mockGateway = new Mock<IFetchSurveysGateway>();
+      fetchSurveys = new FetchSurveys(mockGateway.Object);
+      //mockGateway.Setup(p => p.Execute()).Returns(response);
+
     }
 
     [Test]
-    public void itGetsEmptySurveys()
+    public void itGetsASurvey()
     {
-      var mockGateway = new Mock<IFetchSurveysGateway>();
-      List<Survey> response = new List<Survey>() { };
-      mockGateway.Setup(p => p.Execute()).Returns(response);
-
-      fetchSurveys = new FetchSurveys(mockGateway.Object);
-      fetchSurveys.Execute();
-      mockGateway.Verify(mockGateway => mockGateway.Execute(), Times.AtLeastOnce());
+      string query = "Compliancy";
+      fetchSurveys.Execute(query);
+      mockGateway.Verify(mockGateway => mockGateway.Execute(query), Times.AtLeastOnce());
     }
   }
 }

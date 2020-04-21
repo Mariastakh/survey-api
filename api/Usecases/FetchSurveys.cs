@@ -10,9 +10,9 @@ namespace api
       {
         this.gateway = gateway;
       }
-      public List<Survey> Execute()
+      public List<Survey> Execute(string query)
       {
-          return gateway.Execute();
+          return gateway.Execute(query);
       }
   }
 }

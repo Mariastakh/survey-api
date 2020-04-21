@@ -4,7 +4,11 @@ namespace api
 {
     public class FetchSurveysGateway : IFetchSurveysGateway
     {
-        public List<Survey> Execute()
+        public FetchSurveysGateway()
+        {
+
+        }
+        public List<Survey> Execute(string query)
         {
             List<Survey> response = new List<Survey>() { 
                 new Survey(){ },
