@@ -16,13 +16,9 @@ namespace api.test
     public void itGetsEmptySurveys()
     {
       var mockGateway = new Mock<IFetchSurveysGateway>();
-      
-      List<Survey> response = new List<Survey>() { 
-                new Survey(){ },
-                new Survey(){ }
-            };
-
+      List<Survey> response = new List<Survey>() { };
       mockGateway.Setup(p => p.Execute()).Returns(response);
+
       fetchSurveys = new FetchSurveys(mockGateway.Object);
       fetchSurveys.Execute();
       mockGateway.Verify(mockGateway => mockGateway.Execute(), Times.AtLeastOnce());
