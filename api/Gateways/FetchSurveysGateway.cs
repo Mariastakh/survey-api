@@ -11,8 +11,8 @@ namespace api
         public List<Survey> Execute(string query)
         {
             List<Survey> response = new List<Survey>() { 
-                new Survey(){ },
-                new Survey(){ }
+                new Survey(){ Topic="Topic one" },
+                new Survey(){ Topic="Topic two" }
             };
             return response;
         }
