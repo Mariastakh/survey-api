@@ -9,7 +9,7 @@ namespace api.test
     {
         static readonly HttpClient client = new HttpClient();
         string LOCALHOST = "http://localhost:5000";
-
+ SurveyController controller = new  SurveyController();
         [SetUp]
         public void Setup()
         {  
@@ -25,6 +25,8 @@ namespace api.test
         {
             //HttpResponseMessage response = await client.GetAsync($"{LOCALHOST}");
             //response.Should().Be("Status 200");
+            var response = controller.SurveyTopics();
+            response.Should().Contain("bananas");
         }
     }
 }
