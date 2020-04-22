@@ -21,10 +21,8 @@ namespace api.test
         }
 
         [Test]
-        public async Task ItGetsASpecifiedSurvey()
+        public void ItGetsASurveyTopic()
         {
-            //HttpResponseMessage response = await client.GetAsync($"{LOCALHOST}");
-            //response.Should().Be("Status 200");
             var response = controller.SurveyTopics();
             response.Should().Contain("bananas");
         }
