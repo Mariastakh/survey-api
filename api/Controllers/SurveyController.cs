@@ -1,18 +1,37 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace api
 {
     [Produces("application/json")]
-    [Route("api")]
-
     public class SurveyController
     {
-        [HttpGet("topics")]
+        List<string> topics = new List<string>() { "cats", "bananas" };
+        List<Survey> surveys = new List<Survey>() {
+             new Survey { Topic = "bananas"},
+             new Survey { Topic = "shoes"}
+         };
+
+        [Route("api/topics")]
+        [HttpGet]
         public List<string> SurveyTopics()
         {
-            List<string> topics = new List<string>() { "cats", "bananas" };
+
             return topics;
+        }
+
+       [Route("api/surveys")]
+       [HttpGet]
+        public IActionResult Surveys(string topics)
+        {
+            var survey =  surveys.FirstOrDefault(x => x.Topic == topics);
+
+            if(survey == null){
+                return new NotFoundResult();
+            }
+            
+            return new OkObjectResult(survey);
         }
     }
 
