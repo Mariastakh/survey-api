@@ -7,10 +7,11 @@ namespace api
     [Produces("application/json")]
     public class SurveyController
     {
-        List<string> topics = new List<string>() { "cats", "bananas" };
+        List<string> topics = new List<string>() { "cats", "bananas", "shoes" };
         List<Survey> surveys = new List<Survey>() {
              new Survey { Topic = "bananas"},
-             new Survey { Topic = "shoes"}
+             new Survey { Topic = "shoes"},
+             new Survey { Topic = "cats"}
          };
 
         [Route("api/topics")]
@@ -23,15 +24,27 @@ namespace api
 
        [Route("api/surveys")]
        [HttpGet]
-        public IActionResult Surveys(string topics)
+        public IActionResult Surveys(List<string> topics)
         {
-            var survey =  surveys.FirstOrDefault(x => x.Topic == topics);
+            //var survey =  surveys.FirstOrDefault(x => x.Topic == topics);
+            List<string> surveyTopics = new List<string>();
+            foreach(string topic in topics)
+            {
+                foreach(Survey survey in surveys)
+                {
+                    if(survey.Topic == topic)
+                    {
+                        surveyTopics.Add(topic);
+                    }
+                }
+            }
 
-            if(survey == null){
+
+            if(surveyTopics == null){
                 return new NotFoundResult();
             }
-            
-            return new OkObjectResult(survey);
+
+            return new OkObjectResult(surveyTopics);
         }
     }
 
