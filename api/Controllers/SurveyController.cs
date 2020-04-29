@@ -7,7 +7,11 @@ namespace api
     [Produces("application/json")]
     public class SurveyController
     {
-        List<string> topics = new List<string>() { "cats", "bananas", "shoes" };
+        DatabaseConnection db;
+        FetchSurveysGateway fetchSurveysGateway;
+        FetchSurveys fetchSurveys;
+        //List<string> topics = new List<string>() { "cats", "bananas", "shoes" };
+        List<string> topics = new List<string>();
         List<Survey> surveys = new List<Survey>() {
              new Survey { Topic = "bananas"},
              new Survey { Topic = "shoes"},
@@ -18,7 +22,9 @@ namespace api
         [HttpGet]
         public List<string> SurveyTopics()
         {
-
+            fetchSurveysGateway = new FetchSurveysGateway(db);
+            fetchSurveys = new FetchSurveys(fetchSurveysGateway);
+            List<string> response = fetchSurveys.getTopics();
             return topics;
         }
 

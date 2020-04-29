@@ -1,15 +1,18 @@
 using NUnit.Framework;
-using System.Collections.Generic;
+using System.Net.Http;
+using FluentAssertions;
+using System.Threading.Tasks;
 
 namespace api.test
 {
     public class AcceptanceTests
     {
-        FetchSurveys fetchSurveys;
+        static readonly HttpClient client = new HttpClient();
+        string LOCALHOST = "http://localhost:5000";
+ SurveyController controller = new  SurveyController();
         [SetUp]
         public void Setup()
-        {
-           // fetchSurveys = new FetchSurveys();
+        {  
         }
 
         [TearDown]
@@ -18,10 +21,12 @@ namespace api.test
         }
 
         [Test]
-        public void ItCanServeAnEmptySurvey()
+        public void ItGetsASurveyTopic()
         {
-            //List<Survey> response = fetchSurveys.Execute();
-            //Assert.IsEmpty(response);
+            var response = controller.SurveyTopics();
+            response.Should().Contain("Compliancy");
         }
+
+
     }
 }
