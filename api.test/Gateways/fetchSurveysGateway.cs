@@ -26,7 +26,7 @@ namespace api.test
         {
             fetchSurveysGateway = new FetchSurveysGateway(mockDb.Object, "bad connection");
             Action act = () => fetchSurveysGateway.getTopics();
-            mockDb.Setup(m => m.open("bad connection")).Throws(new BadConnectionStringException("bad connection man"));
+            mockDb.Setup(m => m.open("bad connection")).Throws(new BadConnectionStringException("Bad connection string"));
             act.Should().Throw<BadConnectionStringException>();
         }
 

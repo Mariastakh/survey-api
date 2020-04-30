@@ -3,10 +3,12 @@ using System.Collections.Generic;
 
 namespace api
 {
-    public class BadConnectionStringException: Exception {
-   public BadConnectionStringException(string message): base(message) {
-   }
-}
+    public class BadConnectionStringException : Exception
+    {
+        public BadConnectionStringException(string message) : base(message)
+        {
+        }
+    }
     public class FetchSurveysGateway : IFetchSurveysGateway
     {
         IDatabaseConnection db;
@@ -27,14 +29,9 @@ namespace api
 
         public List<string> getTopics()
         {
-            try
-            {
-                db.open(connectionString);
-            }
-            catch (BadConnectionStringException e1)
-            {
-             throw;   
-            }
+
+            db.open(connectionString);
+
 
             List<string> response = db.executeQuery("the query");
             return response;
