@@ -1,4 +1,6 @@
+using System;
 using NUnit.Framework;
+using FluentAssertions;
 using System.Collections.Generic;
 using Moq;
 
@@ -13,16 +15,25 @@ namespace api.test
         [SetUp]
         public void Setup()
         {
+            connectionString = "Server: server; Post: port; User: Maria; password: pwd; Database: mydb";
             expectedResult = new List<string>() { "Compliance", "Infrastructure" };
             mockDb = new Mock<IDatabaseConnection>();
             mockDb.Setup(foo => foo.executeQuery("the query")).Returns(expectedResult);
-            fetchSurveysGateway = new FetchSurveysGateway(mockDb.Object);
+        }
+
+        [Test]
+        public void itShowsAnErrorMessageIfConnectionFailed()
+        {
+            fetchSurveysGateway = new FetchSurveysGateway(mockDb.Object, "bad connection");
+            Action act = () => fetchSurveysGateway.getTopics();
+            mockDb.Setup(m => m.open("bad connection")).Throws(new BadConnectionStringException("bad connection man"));
+            act.Should().Throw<BadConnectionStringException>();
         }
 
         [Test]
         public void itGetsTopics()
         {
-            string connectionString = "Server: server; Post: port; User: Maria; password: pwd; Database: mydb";
+            fetchSurveysGateway = new FetchSurveysGateway(mockDb.Object, connectionString);
             string query = "the query";
             List<string> response = fetchSurveysGateway.getTopics();
             mockDb.Verify(mockDb => mockDb.open(connectionString), Times.AtLeastOnce());

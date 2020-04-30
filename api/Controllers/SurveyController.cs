@@ -22,7 +22,8 @@ namespace api
         [HttpGet]
         public List<string> SurveyTopics()
         {
-            fetchSurveysGateway = new FetchSurveysGateway(db);
+            db = new DatabaseConnection();
+            fetchSurveysGateway = new FetchSurveysGateway(db, "Server: server; Post: port; User: Maria; password: pwd; Database: mydb");
             fetchSurveys = new FetchSurveys(fetchSurveysGateway);
             List<string> response = fetchSurveys.getTopics();
             return topics;
