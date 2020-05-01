@@ -23,7 +23,8 @@ namespace api
         public List<string> SurveyTopics()
         {
             db = new DatabaseConnection();
-            fetchSurveysGateway = new FetchSurveysGateway(db, "Server: server; Post: port; User: Maria; password: pwd; Database: mydb");
+            string connectionString = $"Server=127.0.0.1; Port=5432; User Id=maria; Password=1234; Database=survey";
+            fetchSurveysGateway = new FetchSurveysGateway(db, connectionString);
             fetchSurveys = new FetchSurveys(fetchSurveysGateway);
             List<string> response = fetchSurveys.getTopics();
             return topics;

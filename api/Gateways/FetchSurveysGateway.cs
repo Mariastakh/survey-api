@@ -29,11 +29,9 @@ namespace api
 
         public List<string> getTopics()
         {
-
-            db.open(connectionString);
-
-
-            List<string> response = db.executeQuery("the query");
+            if(db.open(connectionString) == false){throw new BadConnectionStringException("bad connection");};
+            
+            List<string> response = db.executeQuery("SELECT * FROM surveys WHERE topic = ANY('{Compliance, Infrastructure}')");
             return response;
         }
     }

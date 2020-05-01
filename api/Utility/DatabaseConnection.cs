@@ -9,23 +9,37 @@ namespace api
     {
 
         NpgsqlConnection conn;
+        List<string> topics = new List<string>();
         public DatabaseConnection()
         {
 
         }
 
-        public void open(string connectionString)
+        public bool open(string connectionString)
         {
             conn = new NpgsqlConnection(connectionString);
-            //$"Server=127.0.0.1; Port=5432; User Id={Environment.GetEnvironmentVariable("DB_USER")}; Password={Environment.GetEnvironmentVariable("DB_PASSWORD")}; Database=surveys"
             conn.Open();
-            if(conn.State==ConnectionState.Closed) { throw new BadConnectionStringException("Bad connection string");}
+            if (conn.State == ConnectionState.Open) { return true; }
+            return false;
         }
 
         public List<string> executeQuery(string query)
         {
-            List<string> result = new List<string>() { "Compliance", "Infrastructure" };
-            return result;
+            using (NpgsqlCommand command = new NpgsqlCommand(query, conn))
+            {
+                NpgsqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string topic = reader.GetString(reader.GetOrdinal("topic"));
+
+                    topics.Add(topic);
+                }
+
+                conn.Close(); //close the current connection
+            }
+
+            return topics;
         }
     }
 }

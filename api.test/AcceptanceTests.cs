@@ -24,7 +24,7 @@ namespace api.test
         public void ItGetsASurveyTopic()
         {
             var response = controller.SurveyTopics();
-            response.Should().Contain("Compliancy");
+            response.Should().Contain("Compliance");
         }
 
 
