@@ -18,7 +18,7 @@ namespace api.test
             connectionString = "Server: server; Post: port; User: Maria; password: pwd; Database: mydb";
             expectedResult = new List<string>() { "Compliance", "Infrastructure" };
             mockDb = new Mock<IDatabaseConnection>();
-            mockDb.Setup(foo => foo.executeQuery("the query")).Returns(expectedResult);
+            mockDb.Setup(foo => foo.executeQuery(It.IsAny<string>())).Returns(expectedResult);
             mockDb.Setup(m => m.open(connectionString)).Returns(true);
         }
 
@@ -27,7 +27,6 @@ namespace api.test
         {
             fetchSurveysGateway = new FetchSurveysGateway(mockDb.Object, "bad connection");
             Action act = () => fetchSurveysGateway.getTopics();
-            mockDb.Setup(m => m.open("bad connection")).Returns(false);
             act.Should().Throw<BadConnectionStringException>();
         }
 
@@ -35,11 +34,9 @@ namespace api.test
         public void itGetsTopics()
         {
             fetchSurveysGateway = new FetchSurveysGateway(mockDb.Object, connectionString);
-            string query = "the query";
             List<string> response = fetchSurveysGateway.getTopics();
-            
             mockDb.Verify(mockDb => mockDb.open(connectionString), Times.AtLeastOnce());
-            mockDb.Verify(mockDb => mockDb.executeQuery(query), Times.AtLeastOnce());
+            mockDb.Verify(mockDb => mockDb.executeQuery(It.IsAny<string>()), Times.AtLeastOnce());
             Assert.AreEqual(expectedResult, response);
         }
     }
