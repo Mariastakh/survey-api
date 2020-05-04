@@ -27,7 +27,7 @@ namespace api
             fetchSurveysGateway = new FetchSurveysGateway(db, connectionString);
             fetchSurveys = new FetchSurveys(fetchSurveysGateway);
             List<string> response = fetchSurveys.getTopics();
-            return topics;
+            return response;
         }
 
        [Route("api/surveys")]
