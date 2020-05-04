@@ -14,5 +14,11 @@ namespace api
       {
           return gateway.Execute(query);
       }
+
+      public List<string> getTopics()
+      {
+        List<string> response = gateway.getTopics();
+        return response;
+      }
   }
 }

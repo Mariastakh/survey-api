@@ -25,5 +25,12 @@ namespace api.test
       fetchSurveys.Execute(query);
       mockGateway.Verify(mockGateway => mockGateway.Execute(query), Times.AtLeastOnce());
     }
+
+    [Test]
+    public void itGetsATopic()
+    {
+      fetchSurveys.getTopics();
+      mockGateway.Verify(mockGateway => mockGateway.getTopics(), Times.AtLeastOnce());
+    }
   }
 }

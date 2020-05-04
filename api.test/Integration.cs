@@ -1,30 +1,20 @@
 using NUnit.Framework;
-using System.Net.Http;
-using FluentAssertions;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace api.test
 {
-    public class IntegrationTests
+    public class InegrationTests
     {
-        static readonly HttpClient client = new HttpClient();
-        string LOCALHOST = "http://localhost:5000";
-
+        FetchSurveys fetchSurveys;
         [SetUp]
         public void Setup()
-        {  
+        {
+           // fetchSurveys = new FetchSurveys();
         }
 
         [TearDown]
         public void TearDown()
         {
-        }
-
-        [Test]
-        public async Task ItGetsASpecifiedSurvey()
-        {
-            //HttpResponseMessage response = await client.GetAsync($"{LOCALHOST}");
-            //response.Should().Be("Status 200");
         }
     }
 }
