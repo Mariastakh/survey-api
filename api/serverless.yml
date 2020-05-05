@@ -15,6 +15,6 @@ functions:
   api:
     handler: api::api.LambdaEntryPoint::FunctionHandlerAsync
     events:
-     - http:
-         path: /{proxy+}
-         method: ANY
+      - http:
+          path: /{proxy+}
+          method: ANY
