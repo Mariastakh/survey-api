@@ -4,6 +4,12 @@ orbs:
     win: circleci/windows@2.2.0
 
 jobs:
+  test:
+    description: "Setup the application and run the tests"
+    executor: win/default
+    steps:
+      - checkout
+      
   build:
     description: Build the application
     executor: win/default     
