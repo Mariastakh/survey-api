@@ -8,9 +8,9 @@
     description: build the application
     executor: win/default     
     
-     steps:
-       - checkout
-       - run: dotnet build
+    steps:
+      - checkout
+      - run: dotnet build
 
 workflows:
   build-and-test:
