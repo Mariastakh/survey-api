@@ -1,51 +1,18 @@
-version: 2.1
+ version: 2.1
 
-orbs:
+ orbs:
   win: circleci/windows@2.2.0
 
-jobs:
-  test:
-    description: Setup the application and run the tests
-    executor: win/default
-
-    steps:
-      - checkout
-      - restore_cache:
-        keys:
-          - dotnet-packages-v1-{{ checksum "api/api.csproj" }}
-
-      - run:
-        name: "Install project dependencies"
-        command: dotnet.exe restore
-
-      - save_cache:
-        paths:
-          - C:\Users\circleci\.nuget\packages
-        key: dotnet-packages-v1-{{ checksum "api/api.csproj" }}
-
-      - run:
-        name: "Run the unit tests"
-        command: dotnet.exe test -v n --results-directory:test_coverage --collect:"Code Coverage"
-
-      - run:
-        name: "Print working directory"
-        command: pwd
-
-      - store_artefacts:
-        path: C:\Users\circlci\project\test_coverage
-
-  build:
-    description: Build the application
-    executor: win/default
-
-    steps:
-      - checkout
-      - run: dotnet build
+ jobs:
+   build:
+    description: build the application
+    executor: win/default     
+    
+     steps:
+       - checkout
+       - run: dotnet build
 
 workflows:
   build-and-test:
     jobs:
-      - test
-      - build:
-        requires:
-          - test
+      - build
