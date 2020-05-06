@@ -33,7 +33,14 @@ jobs:
           root: ~/repo
           paths: .
 
+  deploy-production:
+    executor: win/default
+    steps:
+      - attach_workspace:
+          at: ~/repo
+
 workflows:
   build-and-test:
     jobs:
       - test_and_build
+      - deploy-production
