@@ -25,7 +25,7 @@ jobs:
           command: dotnet test --filter "api.test"
 
       - persist_to_workspace:
-          root: ~/repo
+          root: ~/survey-app
           paths: .
 
   build:
