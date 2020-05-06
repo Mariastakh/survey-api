@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace api.test
+namespace api.integrationTest
 {
     public class InegrationTests
     {

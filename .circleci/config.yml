@@ -12,7 +12,7 @@ jobs:
 
       - run:
           name: "Run application tests"
-          command: dotnet test
+          command: dotnet test --filter "api.test"
 
   build:
     description: Build the application

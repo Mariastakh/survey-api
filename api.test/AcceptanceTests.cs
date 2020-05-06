@@ -3,7 +3,7 @@ using System.Net.Http;
 using FluentAssertions;
 using System.Threading.Tasks;
 
-namespace api.test
+namespace api.AcceptanceTests
 {
     public class AcceptanceTests
     {
