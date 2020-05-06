@@ -39,6 +39,10 @@ jobs:
       - attach_workspace:
           at: ~/repo
 
+      - run:
+          name: Deploy application
+          command: serverless deploy
+
 workflows:
   build-and-test:
     jobs:
