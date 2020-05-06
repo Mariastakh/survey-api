@@ -43,4 +43,6 @@ workflows:
   build-and-test:
     jobs:
       - test_and_build
-      - deploy-production
+      - deploy-production:
+          requires:
+            - test_and_build
