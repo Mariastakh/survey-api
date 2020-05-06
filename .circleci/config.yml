@@ -41,7 +41,7 @@ jobs:
 
       - run:
           name: Deploy application
-          command: serverless deploy
+          command: dotnet lambda deploy-serverless
 
 workflows:
   build-and-test:
