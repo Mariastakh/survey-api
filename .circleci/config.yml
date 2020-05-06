@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-    win: circleci/windows@2.2.0
+  win: circleci/windows@2.2.0
 
 jobs:
   test:
@@ -19,18 +19,23 @@ jobs:
           paths:
             - C:\Users\circleci\.nuget\packages
           key: dotnet-packages-v1-{{ checksum "api/api.csproj" }}
-      
+
       - run:
           name: "Run application tests"
           command: dotnet test --filter "api.test"
 
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
+
   build:
     description: Build the application
-    executor: win/default     
-    
+    executor: win/default
+
     steps:
-       - checkout
-       - run: dotnet build
+      - checkout
+      - run: dotnet build
+
 
 workflows:
   build-and-test:
