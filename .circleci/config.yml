@@ -10,8 +10,8 @@ jobs:
     steps:
       - checkout
       - restore_chache:
-        keys:
-          - dotnet-packages-v1-{{ checksum "api/api.csproj" }}
+          keys:
+            - dotnet-packages-v1-{{ checksum "api/api.csproj" }}
 
   build:
     description: Build the application
