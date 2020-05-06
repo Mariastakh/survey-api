@@ -19,6 +19,10 @@ jobs:
           paths:
             - C:\Users\circleci\.nuget\packages
           key: dotnet-packages-v1-{{ checksum "api/api.csproj" }}
+      
+      - run:
+          name: "Run application tests"
+          command: dotnet test
 
   build:
     description: Build the application
