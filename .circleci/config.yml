@@ -12,6 +12,9 @@ jobs:
       - restore_cache:
           keys:
             - dotnet-packages-v1-{{ checksum "api/api.csproj" }}
+      - run:
+          name: "Install project dependencies"
+          command: dotnet.exe restore
 
   build:
     description: Build the application
