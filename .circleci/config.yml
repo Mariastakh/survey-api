@@ -4,7 +4,7 @@ orbs:
   win: circleci/windows@2.2.0
 
 jobs:
-  test:
+  test_and_build:
     description: "Setup the application and run the tests"
     executor: win/default
     working_directory: ~/repo
@@ -25,23 +25,15 @@ jobs:
           name: "Run application tests"
           command: dotnet test --filter "api.test"
 
+      - run:
+          name: "Build the application"
+          command: dotnet build
+
       - persist_to_workspace:
           root: ~/repo
           paths: .
 
-  build:
-    description: Build the application
-    executor: win/default
-
-    steps:
-      - checkout
-      - run: dotnet build
-
-
 workflows:
   build-and-test:
     jobs:
-      - test
-      - build:
-          requires:
-            - test
+      - test_and_build
