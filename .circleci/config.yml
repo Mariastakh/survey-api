@@ -9,7 +9,17 @@ jobs:
     executor: win/default
     steps:
       - checkout
-
+      - restore_cache:
+          keys:
+            - dotnet-packages-v1-{{ checksum "api/api.csproj" }}
+      - run:
+          name: "Install project dependencies"
+          command: dotnet restore
+      - save_cache:
+          paths:
+            - C:\Users\circleci\.nuget\packages
+          key: dotnet-packages-v1-{{ checksum "api/api.csproj" }}
+      
       - run:
           name: "Run application tests"
           command: dotnet test --filter "api.test"
