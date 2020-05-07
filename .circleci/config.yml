@@ -33,20 +33,12 @@ jobs:
           root: ~/repo
           paths: .
 
-  deploy-production:
-    executor: win/default
-    steps:
-      - attach_workspace:
-          at: ~/repo
-
       - run:
           name: Deploy application
           command: dotnet lambda package --configuration release --framework netcoreapp3.1 --output-package bin/release/netcoreapp3.1/deploy-package.zip
+
 
 workflows:
   build-and-test:
     jobs:
       - test_and_build
-      - deploy-production:
-          requires:
-            - test_and_build
