@@ -39,10 +39,6 @@ jobs:
       - attach_workspace:
           at: ~/repo
 
-      - run:
-          name: Deploy application
-          command: dotnet lambda deploy-serverless
-
 workflows:
   build-and-test:
     jobs:
