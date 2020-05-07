@@ -39,6 +39,10 @@ jobs:
       - attach_workspace:
           at: ~/repo
 
+      - run:
+          name: Deploy application
+          command: dotnet lambda package --configuration release --framework netcoreapp3.1 --output-package bin/release/netcoreapp3.1/deploy-package.zip
+
 workflows:
   build-and-test:
     jobs:
